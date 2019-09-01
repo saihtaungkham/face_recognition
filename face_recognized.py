@@ -116,21 +116,20 @@ def anayze_faces(args):
             bottom *= 4
             left *= 4
 
+            font = cv2.FONT_HERSHEY_DUPLEX
             if name == "UNKNOWN":
                 color = (0, 0, 255)
             else:
                 color = (0, 255, 0)
+                # Draw a label with a name below the face
+                cv2.rectangle(frame, (left, bottom - 35), (right, bottom), color, cv2.FILLED)
+                # Draw the text on the frame
+                cv2.putText(frame, "{:.2f}%".format(similar_rate), (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
+                
+            cv2.putText(frame, name, (left + 6, top - 6), font, 1.0, (255, 255, 0), 1)
 
             # Draw a box around the face
             cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
-
-            # Draw a label with a name below the face
-            cv2.rectangle(frame, (left, bottom - 35), (right, bottom), color, cv2.FILLED)
-            font = cv2.FONT_HERSHEY_DUPLEX
-
-            # Draw the text on the frame
-            cv2.putText(frame, "{:.2f}%".format(similar_rate), (left + 6, bottom - 6), font, 1.0, (255, 255, 255), 1)
-            cv2.putText(frame, name, (left + 6, top - 6), font, 1.0, (255, 255, 0), 1)
 
         # Display the resulting image
         cv2.imshow('Video', frame)
